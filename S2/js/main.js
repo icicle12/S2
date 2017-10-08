@@ -33,7 +33,7 @@ registerPlugin({
             }
         }
     });
-
+    // strange
     function generateRandomInteger(max) {
         return Math.round(Math.random() * max);
     }
