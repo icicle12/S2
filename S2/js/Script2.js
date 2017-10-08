@@ -1,4 +1,4 @@
-﻿// JavaScript source code
+// JavaScript source code
 registerPlugin({
     name: 'Playlist Manipulator',
     version: '1.0',
@@ -12,6 +12,7 @@ registerPlugin({
     var backend = require('backend');
     var event = require('event');
 
+    //poke chatchannel chatprivate say
     event.on('chat', function (ev) {
         if (!ev.client.isSelf()) {
             //engine.log(ev.client.name() + ' wrote ' + ev.text);
