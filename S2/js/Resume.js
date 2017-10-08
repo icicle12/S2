@@ -28,7 +28,7 @@ registerPlugin({
             var minutes = Math.floor(pos / 60000),
                 seconds = ((pos % 60000) / 1000).toFixed(0),
                 time = minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
-            backend.getCurrentChannel().chat('Position saved for track ' + track.title + ' at ' + time + '.');
+            backend.getCurrentChannel().chat('Position saved for track ' + track.title + ' at ' + string(time) + '.');
             media.stop();
         }
         
@@ -46,7 +46,7 @@ registerPlugin({
                 time = minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
             track.play();
             audio.seek(pos);
-            backend.getCurrentChannel().chat('Resumed' + track.title + ' at ' + time + '.');
+            backend.getCurrentChannel().chat('Resumed' + track.title + ' at ' + string(time) + '.');
         }
     });
 });
