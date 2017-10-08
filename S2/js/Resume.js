@@ -60,22 +60,30 @@ registerPlugin({
             if (!track) return;
             var pos = sinusbot.getPos();
             sinusbot.setVar(track.uuid, pos);
-            var minutes = Math.floor(pos / 60000),
-                seconds = ((pos % 60000) / 1000).toFixed(0),
-                time = minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
-            sinusbot.chatChannel('Position saved for "' + track.title + '" at ' + time + '.');
+            sinusbot.chatChannel('Position saved for track ' + track.uuid + ' at ' + pos + 'ms.');
             sinusbot.stop();
         }
-        if (ev.msg == '.resume') {
-            var track = sinusbot.getCurrentTrack();
-            if (!track) return;
-            var pos = sinusbot.getVar(track.uuid);
-            if (!pos) {
-                sinusbot.chatChannel('No position found, sorry.');
-                return;
-            }
-            sinusbot.seek(pos);
-            sinusbot.chatChannel('Resumed at ' + pos + 'ms.');
+          if (ev.text == '!resume') {
+              var track = media.getCurrentTrack();
+              if (!track) return;
+              var pos = store.get(track.ID());
+              if (!pos) {
+                  backend.getCurrentChannel().chat('No position found, sorry.');
+                  return;
+              }
+              sinusbot.track.play();
+              audio.seek(pos);
+              backend.getCurrentChannel().chat('Resumed at ' + pos + 'ms.');
+        //if (ev.msg == '.resume') {
+        //    var track = sinusbot.getCurrentTrack();
+        //    if (!track) return;
+        //    var pos = sinusbot.getVar(track.uuid);
+        //    if (!pos) {
+        //        sinusbot.chatChannel('No position found, sorry.');
+        //        return;
+        //    }
+        //    sinusbot.seek(pos);
+        //    sinusbot.chatChannel('Resumed at ' + pos + 'ms.');
         }
     });
 });
