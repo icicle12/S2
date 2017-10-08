@@ -25,7 +25,10 @@ registerPlugin({
             if (!track) return;
             var pos = audio.getTrackPosition();
             store.set(track.ID(), pos);
-            backend.getCurrentChannel().chat('Position saved for track ' + track.uuid + ' at ' + pos + 'ms.');
+            var minutes = Math.floor(pos / 60000);
+            var seconds = ((pos % 60000) / 1000).toFixed(0);
+            var time = minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+            backend.getCurrentChannel().chat('Position saved for track ' + track.uuid + ' at ' + time + '.');
             media.stop();
         }
         
@@ -38,9 +41,12 @@ registerPlugin({
                 backend.getCurrentChannel().chat('No position found, sorry.');
                 return;
             }
+            var minutes = Math.floor(pos / 60000);
+            var seconds = ((pos % 60000) / 1000).toFixed(0);
+            var time = minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
             track.play();
             audio.seek(pos);
-            backend.getCurrentChannel().chat('Resumed at ' + pos + 'ms.');
+            backend.getCurrentChannel().chat('Resumed at ' + time + '.');
         }
     });
 });
