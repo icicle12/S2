@@ -19,7 +19,7 @@ registerPlugin({
 
     event.on('chat', function (ev) {
         engine.log(ev.text);
-        if (ev.text == '.bookmark') {
+        if (ev.text == '!pause') {
             engine.log("bookmark");
             var track = media.getCurrentTrack();
             if (!track) return;
