@@ -1,46 +1,21 @@
-﻿// Testing with sample SinusBot code, taken from the !roll script
+﻿// JavaScript source code
 registerPlugin({
-    name: 'Playlist Creator',
+    name: 'Playlist Manipulator',
     version: '1.0',
-    description: 'Allows users to create Playlists and move songs',
-    author: 'Shawye H. <shawye@ucla.edu>',
-    vars: {}
+    backends: ['ts3', 'discord'],
+    engine: '>= 0.9.16',
+    description: 'Allows Users to Create and Delete Playlists, and move songs between Playlists',
+    author: 'Shawye Ho <shawye@ucla.edu>',
+    vars: []
 }, function (sinusbot, config) {
-    sinusbot.on('chat', function (ev) {
-        var chatMessage = ev.msg;
-        var args = chatMessage.split(" ");
+    var engine = require('engine');
+    var backend = require('backend');
+    var event = require('event');
 
-        if (ev.mode < 3 && args.length >= 1 && args[0].toLowerCase() == "!hi")
-            var message = "";
-        message = "Hi!";
-        if (ev.mode == 2) {
-            chatChannel(message)
-        }
-        //if (ev.mode < 3 && args.length >= 1 && args[0].toLowerCase() == "!roll") { //If it's a valid !roll command
-        //    var max = 100;
-        //    var message = "";
-
-        //    if (args.length == 2) {
-        //        if (!isNaN(args[1])) {
-        //            max = parseInt(args[1]);
-        //        }
-        //    }
-
-        //    if (args.length <= 2) {
-        //        message = "[COLOR=#aa00ff]" + ev.clientNick + "[/COLOR][COLOR=#005500] rolled: [/COLOR][COLOR=#ff5500]" + generateRandomInteger(max).toString() + "[/COLOR]";
-        //    } else {
-        //        message = "[COLOR=#55ffff]Usage: [/COLOR][COLOR=#ffaa00]!roll <max>[/COLOR]";
-        //    }
-
-        //    if (ev.mode == 2) {
-        //        chatChannel(message);
-        //    } else {
-        //        chatPrivate(ev.clientId, message);
-        //    }
+    event.on('chat', function (ev) {
+        if (!ev.client.isSelf()) {
+            //engine.log(ev.client.name() + ' wrote ' + ev.text);
+            ev.client.chat('Hi ' + ev.client.name() + ', you just wrote: ' + ev.text);
         }
     });
-
-    //function generateRandomInteger(max) {
-     //   return Math.round(Math.random() * max);
-   // }
 });
