@@ -10,6 +10,12 @@ registerPlugin({
         var chatMessage = ev.msg;
         var args = chatMessage.split(" ");
 
+        if (ev.mode < 3 && args.length >= 1 && args[0].toLowerCase() == "!hi")
+            var message = "";
+        message = "Hi!";
+        if (ev.mode == 2) {
+            chatChannel(message)
+        }
         //if (ev.mode < 3 && args.length >= 1 && args[0].toLowerCase() == "!roll") { //If it's a valid !roll command
         //    var max = 100;
         //    var message = "";
@@ -34,7 +40,7 @@ registerPlugin({
         }
     });
 
-    function generateRandomInteger(max) {
-        return Math.round(Math.random() * max);
-    }
+    //function generateRandomInteger(max) {
+     //   return Math.round(Math.random() * max);
+   // }
 });
