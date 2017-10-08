@@ -55,41 +55,34 @@ registerPlugin({
     //    vars: {}
     //}, function (sinusbot, config) {
     sinusbot.on('chat', function (ev) {
-        if (ev.msg == '!pause') {
+        if ((ev.msg == '!pause') && (ev.mode == 2)) {
             var track = sinusbot.getCurrentTrack();
             if (!track) return;
             var pos = sinusbot.getPos();
             sinusbot.setVar(track.uuid, pos);
             sinusbot.chatChannel('Position saved for track ' + track.uuid + ' at ' + pos + 'ms.');
-            sinusbot.setMute(true);
+            sinusbot.stop();
         }
 
-        //if (ev.msg == '!resume') {
-        //    sinusbot.getCurrentChannel().chat('test 2');
-        //    var track = sinusbot.getCurrentTrack();
-        //    sinusbot.getCurrentChannel().chat('test');
-        //    if (!track) return;
-        //    var pos = store.get(track.ID());
-        //    if (!pos) {
-        //        backend.getCurrentChannel().chat('No position found, sorry.');
-        //        return;
-        //    }
-        //    track.play();
-        //    audio.seek(pos);
-        //    backend.getCurrentChannel().chat('Resumed at ' + pos + 'ms.');
-
-        if (ev.msg == '!resume') {
+        if ((ev.msg == '!resume') && (ev.mode == 2)) {
             var track = sinusbot.getCurrentTrack();
             if (!track) return;
             var pos = sinusbot.getVar(track.uuid);
             if (!pos) {
-                 sinusbot.chatChannel('No position found, sorry.');
-                 return;
+                sinusbot.chatChannel('No position found, sorry.');
+                return;
             }
-
+            sinusbot.setMute(true);
+            sinusbot.play();
+            sinusbot.setMute(true);
+            setTimeout(function () {
+            sinusbot.seek(pos);
+            sinusbot.chatChannel('Resumed at ' + pos + 'ms.');
+            }, 50);
+            setTimeout(function () {
             sinusbot.setMute(false);
-            sinsubot.seek(pos);
-            sinusbot.chatChannel('Resumed at ' + pos + 'ms.');  
+            }, 500);
+            
         }
     });
 });
