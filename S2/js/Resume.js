@@ -63,7 +63,7 @@ registerPlugin({
             var minutes = Math.floor(pos / 60000),
                 seconds = ((pos % 60000) / 1000).toFixed(0),
                 time = minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
-            sinusbot.chatChannel('Position saved for track "' + track.title + '" at ' + time + '.');
+            sinusbot.chatChannel('Position saved for "' + track.title + '" at ' + time + '.');
             sinusbot.stop();
         }
         if (ev.msg == '.resume') {
