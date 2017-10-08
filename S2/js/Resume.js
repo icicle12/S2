@@ -19,14 +19,16 @@ registerPlugin({
 
     event.on('chat', function (ev) {
         engine.log(ev.text);
-        if (ev.text == '') {
-            engine.log("bookmark");
+        if (ev.text == '!pause') {
+            engine.log("pause");
             var track = media.getCurrentTrack();
             if (!track) return;
             var pos = audio.getTrackPosition();
             store.set(track.ID(), pos);
-            backend.getCurrentChannel().chat('Position saved for track ' + track.uuid + ' at ' + pos + 'ms.');
+            //backend.getCurrentChannel().chat('Position saved for track ' + track.uuid + ' at ' + pos + 'ms.');
+            media.stop();
         }
+        
         if (ev.text == '!resume') {
             engine.log("resume");
             var track = media.getCurrentTrack();
