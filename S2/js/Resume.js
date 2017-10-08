@@ -85,6 +85,7 @@ registerPlugin({
                  sinusbot.chatChannel('No position found, sorry.');
                  return;
             }
+            sinusbot.play();
             sinusbot.seek(pos);
             sinusbot.chatChannel('Resumed at ' + pos + 'ms.');
         }
