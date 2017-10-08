@@ -19,7 +19,7 @@ registerPlugin({
 
     event.on('chat', function (ev) {
         engine.log(ev.text);
-        if (ev.text == '.bookmark') {
+        if (ev.text == '') {
             engine.log("bookmark");
             var track = media.getCurrentTrack();
             if (!track) return;
@@ -27,7 +27,7 @@ registerPlugin({
             store.set(track.ID(), pos);
             backend.getCurrentChannel().chat('Position saved for track ' + track.uuid + ' at ' + pos + 'ms.');
         }
-        if (ev.text == '.resume') {
+        if (ev.text == '!resume') {
             engine.log("resume");
             var track = media.getCurrentTrack();
             if (!track) return;
@@ -36,6 +36,7 @@ registerPlugin({
                 backend.getCurrentChannel().chat('No position found, sorry.');
                 return;
             }
+            track.play();
             audio.seek(pos);
             backend.getCurrentChannel().chat('Resumed at ' + pos + 'ms.');
         }
