@@ -25,9 +25,9 @@ registerPlugin({
             if (!track) return;
             var pos = audio.getTrackPosition();
             store.set(track.ID(), pos);
-            var minutes = Math.floor(pos / 60000);
-            var seconds = ((pos % 60000) / 1000).toFixed(0);
-            var time = minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+            var minutes = Math.floor(pos / 60000),
+                seconds = ((pos % 60000) / 1000).toFixed(0),
+                time = minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
             backend.getCurrentChannel().chat('Position saved for track ' + track.title + ' at ' + time + '.');
             media.stop();
         }
@@ -41,9 +41,9 @@ registerPlugin({
                 backend.getCurrentChannel().chat('No position found, sorry.');
                 return;
             }
-            var minutes = Math.floor(pos / 60000);
-            var seconds = ((pos % 60000) / 1000).toFixed(0);
-            var time = minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+            var minutes = Math.floor(pos / 60000),
+                seconds = ((pos % 60000) / 1000).toFixed(0),
+                time = minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
             track.play();
             audio.seek(pos);
             backend.getCurrentChannel().chat('Resumed' + track.title + ' at ' + time + '.');
