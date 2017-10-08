@@ -5,7 +5,7 @@ registerPlugin({
     backends: ['ts3', 'discord'],
     engine: '>= 0.9.16',
     description: 'Enter !pause to pause the song, enter !resume to seek to unpause the song.',
-    author: 'Shawye <shawye@ucla.ed>',
+    author: 'Shawye <shawye@ucla.edu>',
     vars: []
 }, function (sinusbot, config) {
 
@@ -61,7 +61,7 @@ registerPlugin({
             var pos = sinusbot.getPos();
             sinusbot.setVar(track.uuid, pos);
             sinusbot.chatChannel('Position saved for track ' + track.uuid + ' at ' + pos + 'ms.');
-            sinusbot.stop();
+            sinusbot.setMute(true);
         }
 
         //if (ev.msg == '!resume') {
@@ -77,6 +77,7 @@ registerPlugin({
         //    track.play();
         //    audio.seek(pos);
         //    backend.getCurrentChannel().chat('Resumed at ' + pos + 'ms.');
+
         if (ev.msg == '!resume') {
             var track = sinusbot.getCurrentTrack();
             if (!track) return;
@@ -85,9 +86,10 @@ registerPlugin({
                  sinusbot.chatChannel('No position found, sorry.');
                  return;
             }
-            sinusbot.play();
-            sinusbot.seek(pos);
-            sinusbot.chatChannel('Resumed at ' + pos + 'ms.');
+
+            sinusbot.setMute(false);
+            sinsubot.seek(pos);
+            sinusbot.chatChannel('Resumed at ' + pos + 'ms.');  
         }
     });
 });
