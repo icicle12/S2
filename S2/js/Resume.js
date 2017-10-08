@@ -1,9 +1,12 @@
 //Some code taken from 'Bookmarks!' Script
+// JavaScript source code
 registerPlugin({
     name: 'Resume',
     version: '1.0',
+    backends: ['ts3', 'discord'],
+    engine: '>= 0.9.16',
     description: 'Enter !pause to pause the song, enter !resume to seek to unpause the song.',
-    author: 'Shawye <shawye@ucla.ed>','Bert'
+    author: 'Shawye <shawye@ucla.ed>',
     vars: []
 }, function (sinusbot, config) {
 
@@ -25,11 +28,11 @@ registerPlugin({
             if (!track) return;
             var pos = audio.getTrackPosition();
             store.set(track.ID(), pos);
-            //backend.getCurrentChannel().chat('Position saved for track ' + track.uuid + ' at ' + pos + 'ms.');
+            backend.getCurrentChannel().chat('Position saved for track ' + track.uuid + ' at ' + pos + 'ms.');
             media.stop();
         }
         
-        if (ev.text == '.resume') {
+        if (ev.text == '!resume') {
             engine.log("resume");
             var track = media.getCurrentTrack();
             if (!track) return;
@@ -38,8 +41,9 @@ registerPlugin({
                 backend.getCurrentChannel().chat('No position found, sorry.');
                 return;
             }
+            track.play();
             audio.seek(pos);
-            //backend.getCurrentChannel().chat('Resumed at ' + pos + 'ms.');
+            backend.getCurrentChannel().chat('Resumed at ' + pos + 'ms.');
         }
     });
 });
