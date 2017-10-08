@@ -1,4 +1,4 @@
-// Some code taken from '.bookmarks'
+//// Some code taken from '.bookmarks'
 registerPlugin({
     name: 'Resume',
     version: '1.0',
@@ -9,40 +9,70 @@ registerPlugin({
     vars: []
 }, function (sinusbot, config) {
 
-    var store = require('store'),
-        media = require('media'),
-        backend = require('backend'),
-        audio = require('audio');
+//    var store = require('store'),
+//        media = require('media'),
+//        backend = require('backend'),
+//        audio = require('audio');
 
-    var event = require('event');
-    event.on('chat', function (ev) {
-        ev.client.chat('Hi, ' + ev.client.name() + ', you just wrote: ' + ev.text);
-    });
+//    var event = require('event');
+//    event.on('chat', function (ev) {
+//        ev.client.chat('Hi, ' + ev.client.name() + ', you just wrote: ' + ev.text);
+//    });
 
-    event.on('chat', function (ev) {
-        engine.log(ev.text);
-        if (ev.text == '!pause') {
-            engine.log("bookmark");
-            var track = media.getCurrentTrack();
-            if (!track) return;
-            var pos = audio.getTrackPosition();
-            store.set(track.ID(), pos);
-            backend.getCurrentChannel().chat('Position saved for track ' + track.uuid + ' at ' + pos + 'ms.');
-            media.stop();
-        }
+//    event.on('chat', function (ev) {
+//        engine.log(ev.text);
+//        if (ev.text == '.bookmark') {
+//            engine.log("bookmark");
+//            var track = media.getCurrentTrack();
+//            if (!track) return;
+//            var pos = audio.getTrackPosition();
+//            store.set(track.ID(), pos);
+//            backend.getCurrentChannel().chat('Position saved for track ' + track.uuid + ' at ' + pos + 'ms.');
+//            media.stop();
+//        }
         
-        if (ev.text == '!resume') {
-            engine.log("resume");
-            var track = media.getCurrentTrack();
+//        if (ev.text == '!resume') {
+//            engine.log("resume");
+//            var track = media.getCurrentTrack();
+//            if (!track) return;
+//            var pos = store.get(track.ID());
+//            if (!pos) {
+//                backend.getCurrentChannel().chat('No position found, sorry.');
+//                return;
+//            }
+//            track.play();
+//            audio.seek(pos);
+//            backend.getCurrentChannel().chat('Resumed at ' + pos + 'ms.');
+//        }
+//    });
+//});
+
+//registerPlugin({
+//    name: 'Bookmarks!',
+//    version: '1.0',
+//    description: 'Enter .bookmark to save the current position, enter .resume to seek to the bookmarked position.',
+//    author: 'Michael Friese <michael@sinusbot.com>',
+//    vars: {}
+//}, function (sinusbot, config) {
+    sinusbot.on('chat', function (ev) {
+        if (ev.msg == '!pause') {
+            var track = sinusbot.getCurrentTrack();
             if (!track) return;
-            var pos = store.get(track.ID());
+            var pos = sinusbot.getPos();
+            sinusbot.setVar(track.uuid, pos);
+            sinusbot.chatChannel('Position saved for track ' + track.uuid + ' at ' + pos + 'ms.');
+            sinusbot.stop();
+        }
+        if (ev.msg == '.resume') {
+            var track = sinusbot.getCurrentTrack();
+            if (!track) return;
+            var pos = sinusbot.getVar(track.uuid);
             if (!pos) {
-                backend.getCurrentChannel().chat('No position found, sorry.');
+                sinusbot.chatChannel('No position found, sorry.');
                 return;
             }
-            track.play();
-            audio.seek(pos);
-            backend.getCurrentChannel().chat('Resumed at ' + pos + 'ms.');
+            sinusbot.seek(pos);
+            sinusbot.chatChannel('Resumed at ' + pos + 'ms.');
         }
     });
 });
