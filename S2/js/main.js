@@ -1,9 +1,9 @@
 ﻿// Testing with sample SinusBot code, taken from the !roll script
 registerPlugin({
-    name: 'Roll',
+    name: 'Playlist Creator',
     version: '1.0',
-    description: 'If someone sends !roll [max], a random number will be send!',
-    author: 'David K. <klostermann.david.99@gmail.com>',
+    description: 'Allows users to create Playlists and move songs',
+    author: 'Shawye H. <shawye@ucla.edu>',
     vars: {}
 }, function (sinusbot, config) {
     sinusbot.on('chat', function (ev) {
