@@ -1,5 +1,4 @@
-//Some code taken from 'Bookmarks!' Script
-// JavaScript source code
+// Some code taken from '.bookmarks'
 registerPlugin({
     name: 'Resume',
     version: '1.0',
@@ -23,7 +22,7 @@ registerPlugin({
     event.on('chat', function (ev) {
         engine.log(ev.text);
         if (ev.text == '!pause') {
-            engine.log("pause");
+            engine.log("bookmark");
             var track = media.getCurrentTrack();
             if (!track) return;
             var pos = audio.getTrackPosition();
