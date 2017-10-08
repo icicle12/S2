@@ -60,7 +60,10 @@ registerPlugin({
             if (!track) return;
             var pos = sinusbot.getPos();
             sinusbot.setVar(track.uuid, pos);
-            sinusbot.chatChannel('Position saved for track ' + track.uuid + ' at ' + pos + 'ms.');
+            var minutes = Math.floor(pos / 60000),
+                seconds = ((pos % 60000) / 1000).toFixed(0),
+                time = minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+            sinusbot.chatChannel('Position saved for "' + track.title + '" at ' + time + '.');
             sinusbot.stop();
         }
 
@@ -77,7 +80,10 @@ registerPlugin({
             sinusbot.setMute(true);
             setTimeout(function () {
             sinusbot.seek(pos);
-            sinusbot.chatChannel('Resumed at ' + pos + 'ms.');
+            var minutes = Math.floor(pos / 60000),
+                seconds = ((pos % 60000) / 1000).toFixed(0),
+                time = minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+            sinusbot.chatChannel('Resumed "' + track.title + '" at ' + time + '.');
             }, 50);
             setTimeout(function () {
             sinusbot.setMute(false);
