@@ -63,17 +63,20 @@ registerPlugin({
             sinusbot.chatChannel('Position saved for track ' + track.uuid + ' at ' + pos + 'ms.');
             sinusbot.stop();
         }
-          if (ev.text == '!resume') {
-              var track = media.getCurrentTrack();
-              if (!track) return;
-              var pos = store.get(track.ID());
-              if (!pos) {
-                  backend.getCurrentChannel().chat('No position found, sorry.');
-                  return;
-              }
-              sinusbot.track.play();
-              audio.seek(pos);
-              backend.getCurrentChannel().chat('Resumed at ' + pos + 'ms.');
+
+        if (ev.text == '!resume') {
+            backend.getCurrentChannel().chat('test 2');
+            var track = sinusbot.getCurrentTrack();
+            backend.getCurrentChannel().chat('test');
+            if (!track) return;
+            var pos = store.get(track.ID());
+            if (!pos) {
+                backend.getCurrentChannel().chat('No position found, sorry.');
+                return;
+            }
+            track.play();
+            audio.seek(pos);
+            backend.getCurrentChannel().chat('Resumed at ' + pos + 'ms.');
         //if (ev.msg == '.resume') {
         //    var track = sinusbot.getCurrentTrack();
         //    if (!track) return;
