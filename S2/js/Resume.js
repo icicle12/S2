@@ -25,7 +25,7 @@ registerPlugin({
             if (!track) return;
             var pos = audio.getTrackPosition();
             store.set(track.ID(), pos);
-            //backend.getCurrentChannel().chat('Position saved for track ' + track.uuid + ' at ' + pos + 'ms.');
+            backend.getCurrentChannel().chat('Position saved for track ' + track.uuid + ' at ' + pos + 'ms.');
             media.stop();
         }
         
