@@ -1,4 +1,4 @@
-﻿// Testing with sample SinusBot code, taken from the !roll script
+﻿// Testing with sample SinusBot code, taken from the !roll script 1
 registerPlugin({
     name: 'Roll',
     version: '1.0',
