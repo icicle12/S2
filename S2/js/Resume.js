@@ -39,7 +39,7 @@ registerPlugin({
                 return;
             }
             audio.seek(pos);
-            backend.getCurrentChannel().chat('Resumed at ' + pos + 'ms.');
+            //backend.getCurrentChannel().chat('Resumed at ' + pos + 'ms.');
         }
     });
 });
